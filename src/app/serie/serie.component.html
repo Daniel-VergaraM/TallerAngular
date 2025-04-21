@@ -1,0 +1,32 @@
+<div class="d-flex align-items-center text-white p-3 mb-3" style="background-color: #1e3a8a;">
+  <img src="https://raw.githubusercontent.com/Daniel-VergaraM/Daniel-VergaraM/refs/heads/main/favicon.ico"
+       alt="Logo" width="50" height="50" class="me-2">
+  <h1 class="text-center">Listado de series</h1>
+</div>
+<div class="container my-3">
+  <div class="row">
+    <div class="col-12 col-md-7 mb-3 mb-md-0">
+      <table class="table table-striped" id="seriesTable">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Channel</th>
+            <th scope="col">Seasons</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of series; trackBy: trackBySerie">
+            <td>{{ s.id }}</td>
+            <td><a href="#" class="serie-link">{{ s.name }}</a></td>
+            <td>{{ s.channel }}</td>
+            <td>{{ s.seasons }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-12 col-md-5">
+      <div class="card d-none" style="width: 18rem;" id="serieCard"></div>
+    </div>
+  </div>
+</div>

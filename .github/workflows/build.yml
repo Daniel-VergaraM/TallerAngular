@@ -1,0 +1,54 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout full history so we can push to gh‑pages
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # 2. Install Node 18 & cache npm
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Build for production, pointing assets under "/Taller-Angular/"
+      # /<repo>/dist/<repo>/browser/index.html
+      # /folder/
+      - name: Build production bundle
+        run: |
+          npx ng build \
+            --configuration=production \
+            --base-href=/TallerAngular/
+
+      # 5. SPA fallback: copy index.html → 404.html in the browser folder
+      - name: Create 404.html fallback
+        run: |
+          cp dist/tallerangular/browser/index.html \
+             dist/tallerangular/browser/404.html
+
+      # 6. Deploy that browser folder to gh‑pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: dist/tallerangular/browser
+          user_name: github-actions
+          user_email: github-actions@github.com
