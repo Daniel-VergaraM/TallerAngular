@@ -42,6 +42,11 @@ jobs:
         run: |
           cp dist/tallerangular/browser/index.html \
              dist/tallerangular/browser/404.html
+            
+      - name: "Create .nojekyll file"
+        run: |
+          echo "" > dist/tallerangular/browser/.nojekyll
+          echo "node_modules" >> dist/tallerangular/browser/.nojekyll
 
       # 6. Deploy that browser folder to gh‑pages
       - name: Deploy to GitHub Pages
