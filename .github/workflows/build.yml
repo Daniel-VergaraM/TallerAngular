@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 4. Build for production, pointing assets under "/Taller-Angular/"
+      # 4. Build for production, pointing assets under "/tallerangular/"
       # /<repo>/dist/<repo>/browser/index.html
       # /folder/
       - name: Build production bundle
